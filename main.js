@@ -42,7 +42,7 @@ const player = (function createGame(){
     }
 
     function playerindicator(flag){
-        if(flag){
+        if(flag){//stop game
             document.getElementById(`${marker}`).style.backgroundColor = 'rgb(38, 38, 38)';
             document.getElementById(`${marker}`).style.boxShadow = '0px 0px 0px 0px rgb(254, 216, 0)';
             return;
@@ -101,9 +101,13 @@ gameboard.addEventListener('click', (event) => {
         player.markbox(event.target.id);
         player.fillbox(event.target.id);
         if(!player.check() && player.getiteration() == 9){
+            player.playerindicator(true);
             setTimeout(() => {
                 alert("DRAW");
+                player.clear();
+                player.playerindicator();
             },200);
+            return;
         }
         if(player.check()){
             player.playerindicator(true);
